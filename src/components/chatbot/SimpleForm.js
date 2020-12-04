@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ChatBot from 'react-simple-chatbot';
 import { ThemeProvider } from "styled-components";
+import logo from "../../logo.png"
 class Review extends Component {
     constructor(props) {
         super(props);
@@ -111,6 +112,14 @@ class SimpleForm extends Component {
             {
                 id: 'name',
                 user: true,
+                validator: (value) => {
+                    if (/^[A-Za-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*/.test(value)) {
+                        return true;
+                    }
+                    else {
+                        return 'Please input alphabet characters only.';
+                    }
+                },
                 trigger: 'q-email',
             },
             {
@@ -232,9 +241,9 @@ class SimpleForm extends Component {
             },
         ]
         return (
-                <ThemeProvider theme={theme}>
-                    <ChatBot steps={steps} {...config} />
-                </ThemeProvider>
+            <ThemeProvider theme={theme}>
+                <ChatBot steps={steps} {...config} botAvatar={logo}/>
+            </ThemeProvider>
 
         );
     }
